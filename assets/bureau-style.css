@@ -1,0 +1,107 @@
+:root{
+    --bg1: #0b1220;
+    --glass: rgba(255,255,255,0.06);
+    --accent: rgba(255,255,255,0.12);
+    --icon-size:96px;
+    --dock-height:72px;
+    --topbar-h:36px;
+    --note-w:220px;
+  }
+  
+  /* base */
+  *{box-sizing:border-box;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif}
+  html,body,#desktop{height:100%;margin:0;padding:0}
+  body{
+    background: linear-gradient(180deg,#091026,#0d1626);
+    color:#e8eef8; -webkit-font-smoothing:antialiased;
+  }
+  
+  /* wallpaper styles (applied on .desktop element by JS) */
+  .desktop{
+    position:relative; height:100vh; overflow:hidden;
+    background-size:cover;background-position:center;
+  }
+  
+  /* top bar */
+  .topbar{
+    height:var(--topbar-h); display:flex; align-items:center; justify-content:space-between;
+    padding:0 12px; position:fixed; left:0; right:0; top:0; z-index:1200;
+    backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    color:#dfe9f8; font-size:13px;
+  }
+  .topbar .left{display:flex;gap:10px;align-items:center}
+  .topbar .apple{font-size:15px; margin-right:4px}
+  .topbar .center{font-weight:600; opacity:0.9}
+  .topbar .right{font-size:13px; opacity:0.9}
+  
+  /* wallpaper controls (small UI) */
+  .wallpaper-controls{
+    position:fixed; left:14px; top:46px; z-index:1200; display:flex; gap:8px; align-items:center;
+    background:var(--glass); padding:8px; border-radius:10px; backdrop-filter: blur(6px);
+  }
+  .small-btn{padding:6px 10px;border-radius:8px;background:transparent;border:0;color:inherit;cursor:pointer}
+  .small-btn input{display:none}
+  .small-btn.danger{color:#ffbcbc}
+  
+  /* icons area */
+  .icons-area{position:absolute; inset:var(--topbar-h) 0 var(--dock-height) 0; overflow:hidden}
+  .icon{
+    position:absolute; width:var(--icon-size); text-align:center; pointer-events:auto; cursor:grab;
+    user-select:none; transform-origin:0 0;
+  }
+  .icon .thumb{width:70px;height:70px;border-radius:12px;display:block;margin:8px auto;object-fit:contain;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  }
+  .icon .label{font-size:13px;margin-top:6px;color:#f0f6ff;text-shadow:0 1px 0 rgba(0,0,0,0.6);}
+  
+  /* folder style (svg) */
+  .folder-svg{width:70px;height:55px;display:block;margin:8px auto}
+  
+  /* floating upload (add) */
+  .floating-upload{position:fixed; right:22px; top:64px; z-index:1200; background:var(--glass); padding:10px 12px;border-radius:12px; cursor:pointer}
+  .floating-upload input{display:none}
+  
+  /* dock */
+  .dock{
+    position:fixed; left:50%; transform:translateX(-50%); bottom:12px; z-index:1200;
+    display:flex; gap:12px; padding:10px 14px; border-radius:16px; backdrop-filter: blur(6px); background:rgba(255,255,255,0.04)
+  }
+  .dock-item{padding:6px 10px;border-radius:10px; cursor:default}
+  
+  /* window / modal (folder) */
+  .window{
+    position:fixed; width:640px; max-width:calc(100% - 40px); height:420px; max-height:calc(100% - 120px);
+    left:50%; top:50%; transform:translate(-50%,-50%); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:12px; box-shadow:0 30px 80px rgba(2,6,23,0.7); z-index:1300; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .window .titlebar{height:44px; display:flex; align-items:center; gap:12px; padding:0 14px; background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent)}
+  .title-controls{display:flex; gap:8px}
+  .title-controls .dot{width:12px;height:12px;border-radius:50%}
+  .dot.red{background:#ff5f57}
+  .dot.yellow{background:#ffbd2e}
+  .dot.green{background:#27c93f}
+  .window .tabs{display:flex; gap:8px; padding:8px 14px; border-bottom:1px solid rgba(255,255,255,0.02)}
+  .window .tabs button{background:transparent;border:0;padding:8px 10px;border-radius:8px;cursor:pointer}
+  .window .content{padding:14px; overflow:auto; flex:1; display:block}
+  
+  /* note style */
+  .note{
+    position:absolute; width:var(--note-w); min-height:120px; padding:12px; border-radius:10px; pointer-events:auto;
+    box-shadow: 0 14px 40px rgba(2,6,23,0.7); cursor:grab; user-select:text; overflow-wrap:break-word;
+  }
+  .note .note-content{outline:none; min-height:80px}
+  
+  /* note colors */
+  .note.yellow{ background: linear-gradient(180deg,#fff8b2,#ffe066); color:#222 }
+  .note.pink{ background: linear-gradient(180deg,#ffdff0,#ffb3d6); color:#2b1b2b }
+  
+  /* responsive tweaks */
+  @media (max-width:900px){
+    :root{--icon-size:72px}
+    .window{width:90%; height:64vh}
+  }
+  
+  /* small helpers */
+  .hidden{display:none}
+  

@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 colonnes fixes */
+  width: 100vw;
+  height: 73,5vh;
+
+  cursor: url("assets/bretzel-curseur-24x24.png") 12 12, auto;
+}
+
+.beer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* chaque case est carrée */
+  overflow: hidden;
+}
+
+.beer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* recadre sans déformer */
+  display: block;
+}
+
+.beer .info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 14px;
+  padding: 5px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-align: center;
+}
+
+.beer:hover .info {
+  opacity: 1;
+}
+
+/* Tooltip personnalisé */
+.tooltip {
+  position: fixed;
+  background: rgba(255, 163, 4, 0.8);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 14px;
+  pointer-events: none; /* ne bloque pas la souris */
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 9999;
+}

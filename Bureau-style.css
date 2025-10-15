@@ -1,0 +1,228 @@
+:root {
+    --bg: #ffffff;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --accent: #0f172a;
+    --shadow: 0 6px 20px rgba(12,17,23,0.08);
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--accent);
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: none;
+    z-index: 1000;
+  }
+  
+  header h1 {
+    color: rgba(255, 163, 4, 0.8);
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  
+  .controls-top {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .btn {
+    background:#fdff9f;
+    color: var(--accent);
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    border: 0;
+    cursor: pointer;
+  }
+  
+  .small {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  
+  /* Zone de travail pleine page */
+  .workspace {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.workspace::before {
+    content: "";
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background-image: url("assets/I-love-stuttgart.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.6; /* ajuste ici l'opacité */
+    z-index: 0;   /* derrière les cartes et notes */
+    pointer-events: none; /* pour ne pas bloquer les clics */
+}
+  
+  /* Cartes d'image */
+  .card {
+    position: absolute;
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    width: auto;
+    height: auto;
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.12s ease;
+  }
+  
+  
+  .card img {
+    width: 100px; /* taille d’icône, ajuste selon ton goût */
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    pointer-events: auto; /* pour que le clic JS fonctionne toujours */
+  }
+
+  
+  
+  
+  .caption {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+  
+  /* Notes */
+  .tab {
+    position: absolute;
+    min-width: 160px;
+    max-width: 260px;
+    padding: 8px;
+    border-radius: 10px;
+    background: #fdff9f;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    cursor: grab;
+  }
+  
+  .tab .title {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  
+  .tab .content {
+    font-size: 13px;
+    min-height: 48px;
+    outline: none;
+  }
+
+  .card, .tab {
+    touch-action: none;
+    -ms-touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  .card img, .tab img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    pointer-events: auto;
+  }
+  
+  
+  
+  /* Zoom modal */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .modal.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    transform: scale(1);
+    transition: transform 0.2s ease;
+  }
+  
+  .modal img.zoomed {
+    transform: scale(1.4);
+  }
+  
+  .close-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    border-radius: 999px;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+/* ✅ Force une surface cliquable sur les PNG transparents */
+.card img[src$=".png"] {
+  background-color: rgba(0,0,0,0.001); /* invisible, mais donne une "hitbox" */
+  pointer-events: auto;
+}
+
+
+  .card img[src$=".png"] {
+    background-color: rgba(0,0,0,0.001);
+  }
+  
+  /* ✅ Effet d'ombre subtile sur les icônes PNG */
+.card img[src$=".png"] {
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.25));
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+  
+  /* Optionnel : effet au survol (léger zoom et ombre plus douce) */
+  .card img[src$=".png"]:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(3px 6px 10px rgba(0, 0, 0, 0.35));
+  }
+  
